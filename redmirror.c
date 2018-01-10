@@ -14,21 +14,36 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-#include "redmirror.h"
-
 #include <sys/types.h>
 #include <stdarg.h>
 #include <stddef.h>
 #include <stdint.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <kcgi.h>
+#include <string.h>
 
 int main(void) {
-	int mc = sizeof(mirrors) / sizeof(mirrors[0]);
+	int mc = 0;
 	int mi;
 	struct kreq req;
 	struct kfcgi *fcgi;
+	static const char filename[] = "/htdocs/cdn.index.txt";
 	const char *page = "index";
+	char mirrors[100][BUFSIZ];
+	FILE *fp = fopen(filename, "r");
+
+	if (fp == NULL) {
+		fprintf(stderr, "failed to open %s", filename);
+		exit(1);
+	}
+
+	while(fgets(mirrors[mc], sizeof(mirrors[0]), fp)) {
+		mirrors[mc][strlen(mirrors[mc]) - 1] = '\0';
+		mc++;
+	}
+
+	fclose(fp);
 
 	if (KCGI_OK != khttp_fcgi_init(&fcgi, NULL, 0, &page, 1, 0))
 		return(EXIT_FAILURE);
