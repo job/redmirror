@@ -1,7 +1,8 @@
+CC		= clang
 TARGET		= redmirror
 
 INCLUDES	= -I/usr/local/include
-CFLAGS		= -g -Wall
+CFLAGS		= -Wall
 LFLAGS		= -static -L/usr/local/lib
 LIBS		= -lkcgi -lz
 
