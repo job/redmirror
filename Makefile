@@ -4,7 +4,7 @@ TARGET		= redmirror
 INCLUDES	= -I/usr/local/include
 CFLAGS		= -Wall
 LFLAGS		= -static -L/usr/local/lib
-LIBS		= -lkcgi -lz
+LIBS		= -lkcgi -lz -lmemcached
 
 SRCS = $(TARGET).c
 OBJS = $(SRCS:.c=.o)

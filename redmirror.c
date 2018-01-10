@@ -14,14 +14,16 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-#include <sys/types.h>
 #include <stdarg.h>
 #include <stddef.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <kcgi.h>
 #include <string.h>
+#include <sys/types.h>
+
+#include <kcgi.h>
+#include <libmemcached/memcached.h>
 
 int main(void) {
 	int mc = 0;
