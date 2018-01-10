@@ -28,7 +28,7 @@ int main(void) {
 	int mi;
 	struct kreq req;
 	struct kfcgi *fcgi;
-	static const char filename[] = "/htdocs/cdn.index.txt";
+	static const char filename[] = "/htdocs/index.txt";
 	const char *page = "index";
 	char mirrors[100][BUFSIZ];
 	FILE *fp = fopen(filename, "r");
