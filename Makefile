@@ -1,14 +1,23 @@
-all:	redmirror
+TARGET		= redmirror
 
-redmirror:
-	cc -I/usr/local/include -c -o redmirror.o redmirror.c
-	cc -L/usr/local/lib -o redmirror  redmirror.o -lkcgi -lz
-	cc -I/usr/local/include -c -o test.o test.c
-	cc -L/usr/local/lib -o test  test.o -lkcgi -lz
+INCLUDES	= -I/usr/local/include
+CFLAGS		= -g -Wall
+LFLAGS		= -static -L/usr/local/lib
+LIBS		= -lkcgi -lz
+
+SRCS = $(TARGET).c
+OBJS = $(SRCS:.c=.o)
+
+all:	$(TARGET)
+
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $(OBJS) $(LFLAGS) $(LIBS)
+
+.c.o:
+	$(CC) $(CFLAGS) $(INCLUDES) -c $<  -o $@
 
 install:
-	doas cp redmirror /var/www/cgi-bin
-	doas cp test /var/www/cgi-bin
+	install -m 0555 redmirror /var/www/fcgi-bin
 
 clean:
-	rm redmirror redmirror.o
+	rm $(TARGET) $(TARGET).o
