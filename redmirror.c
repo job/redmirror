@@ -14,13 +14,14 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+#include "redmirror.h"
+
 #include <sys/types.h>
 #include <stdarg.h>
 #include <stddef.h>
 #include <stdint.h>
 #include <stdlib.h>
 #include <kcgi.h>
-
 
 int main(void) {
 	struct kreq req;
@@ -39,4 +40,3 @@ int main(void) {
 	khttp_fcgi_free(fcgi);
 	return(EXIT_SUCCESS);
 }
-
