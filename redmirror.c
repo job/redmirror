@@ -21,9 +21,12 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <kcgi.h>
 
 int main(void) {
+	int mc = sizeof(mirrors) / sizeof(mirrors[0]);
+	int mi;
 	struct kreq req;
 	struct kfcgi *fcgi;
 	const char *page = "index";
@@ -33,7 +36,11 @@ int main(void) {
 
 	while (KCGI_OK == khttp_fcgi_parse(fcgi, &req)) {
 		khttp_head(&req, kresps[KRESP_STATUS],
-		    "%s derp", khttps[KHTTP_302]);
+		    "%s", khttps[KHTTP_302]);
+		mi = (arc4random() % mc) + 1;
+		khttp_head(&req, kresps[KRESP_LOCATION],
+		    "%s%s", mirrors[mi], req.fullpath);
+		khttp_body(&req);
 		khttp_free(&req);
 	}
 
