@@ -54,8 +54,12 @@ int main(void) {
 		khttp_head(&req, kresps[KRESP_STATUS],
 		    "%s", khttps[KHTTP_302]);
 		mi = arc4random_uniform(mc);
-		khttp_head(&req, kresps[KRESP_LOCATION],
-		    "%s%s", mirrors[mi], req.fullpath);
+		if (req.scheme == KSCHEME_HTTPS)
+			khttp_head(&req, kresps[KRESP_LOCATION],
+			    "https://%s%s", mirrors[mi], req.fullpath);
+		else
+			khttp_head(&req, kresps[KRESP_LOCATION],
+			    "http://%s%s", mirrors[mi], req.fullpath);
 		khttp_body(&req);
 		khttp_free(&req);
 	}
