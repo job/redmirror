@@ -23,7 +23,6 @@
 #include <sys/types.h>
 
 #include <kcgi.h>
-#include <libmemcached/memcached.h>
 
 int main(void) {
 	int mc = 0;
